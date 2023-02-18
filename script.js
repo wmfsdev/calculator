@@ -18,37 +18,82 @@ function divide(a, b) {
 }
 
 
-//console.log(operate(5, 6, add))
-
-// key press
-
-
 let keyString = "";
-let nextKeyString = "";
 let operator = "";
 let keyArray = [];
 let operatorArray = [];
+let display = ""
 
-let operatorKey = document.querySelectorAll(`.key, .equals`);
+let operatorKey = document.querySelectorAll(`.key`);
 let numKey = document.querySelectorAll(`.num-key`);
 let equalsKey = document.querySelector(`.equals`);
 
-    numKey.forEach((div) => {
 
-        div.addEventListener(`click`, function (e) {
-            if (operator === "") {
-                value = e.target.innerText;
-                keyString += + value;
-                //console.log(`"1st" ${keyString}`)
-                displayNumKey(keyString);
-            } else {      
-                value = e.target.innerText;
-                keyString += + value;
-                //console.log(`"1st" ${keyString}`)
-                displayNumKey(keyString);
-            }      
+numKey.forEach((div) => {
+
+    div.addEventListener(`click`, function (e) {
+        value = e.target.innerText;
+        display = e.target.innerText;
+        keyString += + value;
+        console.log(`"1st" ${keyString}`)
+        topDisplay();
+        displayNumKey(keyString);   
     });
 });
+
+   
+operatorKey.forEach((div) => {
+    div.addEventListener(`click`, function(e) {
+        if (display === "+" || display === "" || display === "/" || display === "x" || display === "<") { 
+            display = ""
+            return
+        } else
+        
+        display = e.target.innerText
+        operator = e.target.innerText
+
+        currentEval();
+
+        pushOperator();
+        pushKeyArray();
+        //console.log(operator)
+        topDisplay();
+        keyString = "";
+    });
+});
+
+function currentEval() {
+    if (keyArray.length >= 2) {
+        
+    }
+}
+
+
+equalsKey.addEventListener(`click`, function (e) {
+    pushKeyArray();
+    display = e.target.innerText;
+    let zeroIndexToNumber = Number(keyArray[0])
+    let firstIndexToNumber = Number(keyArray[1])
+    //console.log(zeroIndexToNumber, firstIndexToNumber)
+    operate(zeroIndexToNumber, firstIndexToNumber, add)
+});
+
+
+function operate(a, b, callBack) {
+   console.log(callBack(a, b));  
+}
+
+
+function pushOperator() {
+    operatorArray.push(operator);
+    console.log(operatorArray)
+}
+
+function pushKeyArray() {
+    keyArray.push(keyString);
+    console.log(keyArray);   
+}
+
 
 function displayNumKey(keyStringChoice) {
 
@@ -56,39 +101,20 @@ function displayNumKey(keyStringChoice) {
     numDisplay.textContent = keyStringChoice;
 }
 
-    operatorKey.forEach((div) => {
-        div.addEventListener(`click`, function(e) {
-                operator = e.target.innerText;
-                operatorArray.push(operator);
-                //console.log(operatorArray)
-                displayOperatorKey();
-                keyString = "";
-        });
-    });
 
-
-
-
-function displayOperatorKey() {
+function topDisplay() {
     let operatorDisplay = document.querySelector(`.operator-display`);
-    operatorDisplay.textContent = operator;
+    let content = document.createElement(`div`);
+    content.textContent = display;
+    operatorDisplay.appendChild(content)
 }
 
-// when you click operator the value stored in keyValueString is pushed into an array
 
-equalsKey.addEventListener(`click`, function (e) {
-    
-    pushKeyArray();
-  
-});
 
-function pushKeyArray() {
-
-  keyArray.push(keyValueString);
-  console.log(keyArray);
-    
-}
-
-function operate(a, b, callBack) {
-    return callBack(a, b);
-}
+// function log() {
+//     console.log(keyString = "")
+//     console.log(operator = "")
+//     console.log(keyArray = [])
+//     console.log(operatorArray = [])
+//     console.log(display = "")
+// }

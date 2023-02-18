@@ -19,33 +19,6 @@ body {
     padding: 2px;
 }
 
-.display {
-    display: flex;
-    box-sizing: border-box;
-    height: 200px;
-    background-color: aliceblue;
-    text-align: right;
-    flex-direction: column;
-    font-size: 50px; 
-}
-
-.number-display, .operator-display {
-    display: flex;
-    height: 50px;
-    flex-direction: column;
-    background-color:aliceblue;
-    flex: 1;
-    padding-right: 30px;
-}
-
-.operator-display {
-    font-size: 30px;
-    justify-content: center;
-}
-
-.number-display {
-    justify-content: center;
-}
 
 
 .buttons {
@@ -67,7 +40,7 @@ body {
     background-color:rgb(131, 166, 232);
 }
 
-.key {
+.key, .clear {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -102,4 +75,48 @@ body {
     font-size: 26px;
     padding: 1px;
     background-color: azure;
+}
+
+.top-display {
+    height: 50px;
+    padding-top: 20px;
+    background-color:aliceblue;
+    flex: 1;
+    padding-right: 30px;
+}
+
+
+.display {
+    display: flex;
+    box-sizing: border-box;
+    height: 200px;
+    background-color: aliceblue;
+    text-align: right;
+    flex-direction: column;
+    font-size: 50px; 
+}
+
+.number-display {
+    display: flex;
+    height: 50px;
+    flex-direction: column;
+    background-color:aliceblue;
+    flex: 1;
+    padding-right: 30px;
+}
+
+.operator-display {
+    font-size: 30px;
+    text-align: right;
+    justify-content: flex-end;
+    display: flex;
+    height: 50px;
+    
+    background-color:aliceblue;
+    flex: 1;
+    
+}
+
+.number-display {
+    justify-content: center;
 }
