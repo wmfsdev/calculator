@@ -1,28 +1,20 @@
-
 // basic functions
 
-function add(a, b) {
-    return a + b;
+const operatorObj = {
+
+    '+': function add(a, b) { return a + b; },
+    '-': function sub(a, b) { return a - b; },
+    'X': function multiply(a, b) { return a * b; },
+    '/': function divide(a, b) { return a / b; }    
 }
 
-function sub(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
+// --------
 
 let keyString = "";
 let operator = "";
 let keyArray = [];
 let operatorArray = [];
-let display = ""
+let display = "";
 
 let operatorKey = document.querySelectorAll(`.key`);
 let numKey = document.querySelectorAll(`.num-key`);
@@ -35,9 +27,10 @@ numKey.forEach((div) => {
         value = e.target.innerText;
         display = e.target.innerText;
         keyString += + value;
-        console.log(`"1st" ${keyString}`)
+        // console.log(`"1st" ${keyString}`)
+        // console.log(display)
         topDisplay();
-        displayNumKey(keyString);   
+        displayNumKey(keyString); 
     });
 });
 
@@ -51,47 +44,66 @@ operatorKey.forEach((div) => {
         
         display = e.target.innerText
         operator = e.target.innerText
-
-        currentEval();
-
+        //console.log(keyArray)
+        
         pushOperator();
         pushKeyArray();
-        //console.log(operator)
         topDisplay();
+        currentResult();
+        //console.log(operator)
+        console.log(keyString)
+        console.log(keyArray)
         keyString = "";
     });
 });
 
-function currentEval() {
-    if (keyArray.length >= 2) {
+function currentResult() {
+    if (keyArray.length > 1) {
         
-    }
+        let zeroIndexToNumber = Number(keyArray[0])
+        let firstIndexToNumber = Number(keyArray[1])
+
+        let result = operate(zeroIndexToNumber, firstIndexToNumber, operatorObj[operator])
+
+        let displayCurrentResult = document.querySelector(`.number-display`)
+        displayCurrentResult.textContent = result;
+    } 
 }
 
 
 equalsKey.addEventListener(`click`, function (e) {
+    // if (display = typeof Number) {
+    //     display = display
+    //     return
+    // } else
     pushKeyArray();
     display = e.target.innerText;
+    
     let zeroIndexToNumber = Number(keyArray[0])
     let firstIndexToNumber = Number(keyArray[1])
-    //console.log(zeroIndexToNumber, firstIndexToNumber)
-    operate(zeroIndexToNumber, firstIndexToNumber, add)
+    
+    let result = operate(zeroIndexToNumber, firstIndexToNumber, operatorObj[operator])
+
+    let displayEqualResult = document.querySelector(`.number-display`)
+    displayEqualResult.textContent = result;
+    
 });
 
 
 function operate(a, b, callBack) {
-   console.log(callBack(a, b));  
+   return callBack(a, b); 
+   //console.log(callBack(a, b));  
 }
 
 
 function pushOperator() {
     operatorArray.push(operator);
-    console.log(operatorArray)
+   // console.log(operatorArray)
 }
 
 function pushKeyArray() {
     keyArray.push(keyString);
-    console.log(keyArray);   
+   // console.log(keyArray);   
 }
 
 
