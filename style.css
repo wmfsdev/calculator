@@ -12,6 +12,11 @@ body {
     background-color:whitesmoke;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:rgb(97, 129, 188);
+    
+}
+
+.to-infinity {
+    font-size: 36px;
 }
 
 .calc-container {
