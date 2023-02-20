@@ -85,6 +85,10 @@ body {
     padding-right: 30px;
 }
 
+.top-display-numbers {
+    margin-right: 2px;
+}
+
 
 .display {
     display: flex;
