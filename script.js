@@ -4,7 +4,7 @@ const operatorObj = {
 
     '+': function add(a, b) { return a + b; },
     '-': function sub(a, b) { return a - b; },
-    'x': function multiply(a, b) { return a * b; },
+    '×': function multiply(a, b) { return a * b; },
     '÷': function divide(a, b) { return a / b; }    
 }
 
@@ -27,10 +27,15 @@ let equalsKey = document.querySelector(`.equals`);
 
 numKey.forEach((div) => {
     div.addEventListener(`click`, function (e) {
-        
+        display = e.target.innerText;
+        if (keyString.includes('.') && display.includes('.')  ) {
+            
+            //console.log("yes") 
+            return
+        } else
         value = e.target.innerText;
         console.log(typeof e.target.innerText)
-        display = e.target.innerText;
+        
         keyString += value;
         console.log("num: " + keyString + " string")
         console.log("num: " + keyArray + " array")
