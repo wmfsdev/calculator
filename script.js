@@ -13,16 +13,34 @@ const operatorObj = {
 let keyString = "";
 let operator = "";
 let keyArray = [];
-//let operatorArray = [];
 let display = "";
 let runningTotal = 0;
-
 
 // queries ---------
 
 let operatorKey = document.querySelectorAll(`.key`);
 let numKey = document.querySelectorAll(`.num-key`);
 let equalsKey = document.querySelector(`.equals`);
+let clearKey = document.querySelector(`.clear`);
+
+
+
+
+clearKey.addEventListener('click', function (e) {
+    let opDisplayChild = document.querySelector('.operator-display');
+    while (opDisplayChild.firstChild) {
+        opDisplayChild.removeChild(opDisplayChild.firstChild)
+    }
+    let numDisplay = document.querySelector('.number-display');
+        numDisplay.textContent = "0"
+    
+        console.log(keyString = "")
+        console.log(operator = "")
+        console.log(keyArray = [])
+        console.log(operatorArray = [])
+        console.log(display = "")
+});
+
 
 
 numKey.forEach((div) => {
@@ -44,10 +62,6 @@ numKey.forEach((div) => {
    
 operatorKey.forEach((div) => {
     div.addEventListener(`click`, function(e) {
-        // if (keyArray[0] = 5) {
-        //     console.log("yesy")
-        //    // keyArray.splice(1,1)
-        // } else
         if (display === "+" || display === "" || display === "÷" || display === "x" || display === "<") { 
             display = ""
             return
@@ -59,7 +73,6 @@ operatorKey.forEach((div) => {
         display = e.target.innerText
         operator = e.target.innerText
         console.log(keyArray)
-        //pushOperator();
         topDisplay();                            
         console.log(operator)
         console.log(keyString + " string")          
@@ -113,12 +126,7 @@ equalsKey.addEventListener(`click`, function (e) {
     // console.log(keyString = "")
     // console.log(operator = "")
     // console.log(keyArray = [])
-    
     // console.log(display = "")
-    // if (keyArray.length > 1 ) {
-    //     keyArray.splice(0, 1, result)
-    // } else
-    // return 
 });
 
 function operate(a, b, callBack) {
@@ -133,12 +141,6 @@ function pushKeyArray() {
     keyArray.push(keyString);
    // console.log(keyArray);   
 }
-
-
-// function pushOperator() {
-//     operatorArray.push(operator);
-//    // console.log(operatorArray)
-// }
 
 function displayNumKey() {
     let numDisplay = document.querySelector(`.number-display`);
@@ -155,11 +157,3 @@ function topDisplay() {
 }
 
 
-
-// function log() {
-//     console.log(keyString = "")
-//     console.log(operator = "")
-//     console.log(keyArray = [])
-//     console.log(operatorArray = [])
-//     console.log(display = "")
-// }
