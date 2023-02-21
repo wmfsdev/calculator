@@ -24,7 +24,7 @@ let equalsKey = document.querySelector(`.equals`);
 let clearKey = document.querySelector(`.clear`);
 
 
-
+// eventListeners ---------
 
 clearKey.addEventListener('click', function (e) {
     let opDisplayChild = document.querySelector('.operator-display');
@@ -33,15 +33,12 @@ clearKey.addEventListener('click', function (e) {
     }
     let numDisplay = document.querySelector('.number-display');
         numDisplay.textContent = "0"
-    
-        console.log(keyString = "")
-        console.log(operator = "")
-        console.log(keyArray = [])
-        console.log(operatorArray = [])
-        console.log(display = "")
+        // console.log(keyString = "")
+        // console.log(operator = "")
+        // console.log(keyArray = [])
+        // console.log(operatorArray = [])
+        // console.log(display = "")
 });
-
-
 
 numKey.forEach((div) => {
     div.addEventListener(`click`, function (e) {
@@ -58,8 +55,7 @@ numKey.forEach((div) => {
         displayNumKey(); 
     });
 });
-
-   
+  
 operatorKey.forEach((div) => {
     div.addEventListener(`click`, function(e) {
         if (display === "+" || display === "" || display === "÷" || display === "x" || display === "<") { 
@@ -80,6 +76,34 @@ operatorKey.forEach((div) => {
         keyString = "";
     });
 });
+
+equalsKey.addEventListener(`click`, function (e) {
+    console.log("-------EQUALS-------")
+    if (display === "" || keyArray.length < 1 && display.length > 0) {
+        return
+    } else
+    pushKeyArray();
+    console.log(keyArray)
+    display = e.target.innerText;
+    let zeroIndexToNumber = Number(keyArray[0])
+    let firstIndexToNumber = Number(keyArray[1])
+    let result = operate(zeroIndexToNumber, firstIndexToNumber, operatorObj[operator])
+    let displayEqualResult = document.querySelector(`.number-display`)
+    console.log(result)
+    if (result === Infinity) {
+        displayEqualResult.classList.add('to-infinity');
+        displayEqualResult.textContent = "To Infinity and Beyond!"
+    } else {
+        displayEqualResult.textContent = parseFloat(result.toPrecision(13));
+    }
+    // console.log(keyString = "")
+    // console.log(operator = "")
+    // console.log(keyArray = [])
+    // console.log(display = "")
+});
+
+
+// functions ------------
 
 function currentResult(runningTotal) {
     if (keyArray.length > 1) {
@@ -106,32 +130,8 @@ function currentResult(runningTotal) {
     } 
 }
 
-
-equalsKey.addEventListener(`click`, function (e) {
-    console.log("-------EQUALS-------")
-    pushKeyArray();
-    console.log(keyArray)
-    display = e.target.innerText;
-    let zeroIndexToNumber = Number(keyArray[0])
-    let firstIndexToNumber = Number(keyArray[1])
-    let result = operate(zeroIndexToNumber, firstIndexToNumber, operatorObj[operator])
-    let displayEqualResult = document.querySelector(`.number-display`)
-    console.log(result)
-    if (result === Infinity) {
-        displayEqualResult.classList.add('to-infinity');
-        displayEqualResult.textContent = "To Infinity and Beyond!"
-    } else {
-        displayEqualResult.textContent = parseFloat(result.toPrecision(13));
-    }
-    // console.log(keyString = "")
-    // console.log(operator = "")
-    // console.log(keyArray = [])
-    // console.log(display = "")
-});
-
 function operate(a, b, callBack) {
-   return callBack(a, b); 
-   //console.log(callBack(a, b));  
+   return callBack(a, b);  
 }
 
 function pushKeyArray() {
@@ -139,13 +139,11 @@ function pushKeyArray() {
         keyArray.splice(1,1)
     } 
     keyArray.push(keyString);
-   // console.log(keyArray);   
 }
 
 function displayNumKey() {
     let numDisplay = document.querySelector(`.number-display`);
     numDisplay.textContent = keyString;
-    //console.log(keyStringChoice)
 }
 
 function topDisplay() {
@@ -155,5 +153,3 @@ function topDisplay() {
     content.classList.add(`top-display-numbers`)
     operatorDisplay.appendChild(content)
 }
-
-
