@@ -22,7 +22,7 @@ let operatorKey = document.querySelectorAll(`.key`);
 let numKey = document.querySelectorAll(`.num-key`);
 let equalsKey = document.querySelector(`.equals`);
 let clearKey = document.querySelector(`.clear`);
-
+let botDisplay = document.querySelector('.number-display');
 
 // eventListeners ---------
 
@@ -33,26 +33,23 @@ clearKey.addEventListener('click', function (e) {
     }
     let numDisplay = document.querySelector('.number-display');
         numDisplay.textContent = "0"
-        // console.log(keyString = "")
-        // console.log(operator = "")
-        // console.log(keyArray = [])
-        // console.log(operatorArray = [])
-        // console.log(display = "")
 });
 
 numKey.forEach((div) => {
     div.addEventListener(`click`, function (e) {
         console.log("------NUMBER--------")
         display = e.target.innerText;
-        if (keyString.includes('.') && display.includes('.')  ) {
+        if (keyString.includes('.') && display.includes('.') || keyString.length > 14 ) {
             return
         } else
         value = e.target.innerText;
         keyString += value;
         console.log(keyString + " string")
         console.log(keyArray + " array")
+        divCheck();
         topDisplay();
-        displayNumKey(); 
+        displayNumKey();
+        
     });
 });
   
@@ -69,7 +66,9 @@ operatorKey.forEach((div) => {
         display = e.target.innerText
         operator = e.target.innerText
         console.log(keyArray)
-        topDisplay();                            
+        divCheck(); 
+        topDisplay();
+        divCheck();                            
         console.log(operator)
         console.log(keyString + " string")          
         console.log(keyArray + " array")          
@@ -144,6 +143,14 @@ function pushKeyArray() {
 function displayNumKey() {
     let numDisplay = document.querySelector(`.number-display`);
     numDisplay.textContent = keyString;
+}
+
+function divCheck() {
+    let topDisplay = document.querySelector('.operator-display');
+    let count = topDisplay.querySelectorAll('.operator-display>div').length;
+    if (count > 22) {
+        topDisplay.removeChild(displayDiv.firstChild);
+    }
 }
 
 function topDisplay() {
