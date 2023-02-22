@@ -15,6 +15,8 @@ let operator = "";
 let keyArray = [];
 let display = "";
 let runningTotal = 0;
+let count = "0"
+let secondCount = "0"
 
 // queries ---------
 
@@ -23,8 +25,36 @@ let numKey = document.querySelectorAll(`.num-key`);
 let equalsKey = document.querySelector(`.equals`);
 let clearKey = document.querySelector(`.clear`);
 let botDisplay = document.querySelector('.number-display');
+let goBack = document.querySelector('.go-back')
 
 // eventListeners ---------
+
+goBack.addEventListener('click', function (e) {
+    // if (display === "=") {
+    //     return
+    // } else;
+        console.log("-----DELETE------")
+        console.log(keyString + " string") 
+        console.log(keyArray + " array")
+        console.log(operator)
+        console.log(keyString + " string")          
+        console.log(keyArray + " array")
+
+        let topDisplay = document.querySelector('.operator-display');
+        count = topDisplay.querySelectorAll('.operator-display>div').length;
+
+        if (count !== secondCount) {
+            for (let i = 0 ; i < keyString.length ; i++) {
+            topDisplay.removeChild(topDisplay.lastChild);
+            }
+        }
+        secondCount = topDisplay.querySelectorAll('.operator-display>div').length;
+        botDisplay.innerText = "";
+        keyString = "";
+        console.log(keyString);
+        console.log(display)
+});
+
 
 clearKey.addEventListener('click', function (e) {
     let opDisplayChild = document.querySelector('.operator-display');
@@ -48,18 +78,18 @@ numKey.forEach((div) => {
         console.log(keyArray + " array")
         divCheck();
         topDisplay();
-        displayNumKey();
-        
+        displayNumKey(); 
     });
 });
   
 operatorKey.forEach((div) => {
     div.addEventListener(`click`, function(e) {
-        if (display === "+" || display === "" || display === "÷" || display === "x" || display === "<") { 
+        console.log("------OPERATOR---------")
+        console.log(display)
+        if (keyString === "" || display === "+" || display === "" || display === "÷" || display === "x" || display === "<") { 
             display = ""
             return
         } else
-        console.log("------OPERATOR---------")
         console.log(operator)                                      
         pushKeyArray();
         currentResult(runningTotal); 
@@ -78,10 +108,14 @@ operatorKey.forEach((div) => {
 
 equalsKey.addEventListener(`click`, function (e) {
     console.log("-------EQUALS-------")
+    console.log(keyString)
     if (display === "" || keyArray.length < 1 && display.length > 0) {
         return
     } else
     pushKeyArray();
+    if (keyArray[0] === "." || keyArray[1] === "." && keyString.length > 0) {
+        return
+    } else
     console.log(keyArray)
     display = e.target.innerText;
     let zeroIndexToNumber = Number(keyArray[0])
@@ -149,7 +183,7 @@ function divCheck() {
     let topDisplay = document.querySelector('.operator-display');
     let count = topDisplay.querySelectorAll('.operator-display>div').length;
     if (count > 22) {
-        topDisplay.removeChild(displayDiv.firstChild);
+        topDisplay.removeChild(topDisplay.firstChild);
     }
 }
 

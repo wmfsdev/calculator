@@ -55,6 +55,18 @@ body {
     background-color: azure;
 }
 
+.go-back {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 110px;
+    text-align: center;
+    margin-top: 1px;
+    font-size: 26px;
+    padding: 1px;
+    background-color: azure;
+}
+
 .equals {
     justify-content: center;
     align-items: center;
@@ -78,6 +90,18 @@ body {
     padding: 1px;
     background-color: azure;
 }
+
+/* .double-zero {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 110px;
+    text-align: center;
+    margin-top: 1px;
+    font-size: 26px;
+    padding: 1px;
+    background-color: azure;
+} */
 
 .top-display {
     height: 50px;
