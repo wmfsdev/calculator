@@ -8,7 +8,7 @@ const operatorObj = {
     '÷': function divide(a, b) { return a / b; }    
 }
 
-// variables --------
+// VARIABLES --------
 
 let keyString = "";
 let operator = "";
@@ -18,7 +18,7 @@ let runningTotal = 0;
 let count = "0"
 let secondCount = "0"
 
-// queries ---------
+// QUERIES ---------
 
 let operatorKey = document.querySelectorAll(`.key`);
 let numKey = document.querySelectorAll(`.num-key`);
@@ -27,13 +27,10 @@ let clearKey = document.querySelector(`.clear`);
 let botDisplay = document.querySelector('.number-display');
 let goBack = document.querySelector('.go-back')
 
-// eventListeners ---------
+// EVENT LISTENERS ---------
 
 goBack.addEventListener('click', function (e) {
-    // if (display === "=") {
-    //     return
-    // } else;
-        console.log("-----DELETE------")
+        console.log("-----GO BACK------")
         console.log(keyString + " string") 
         console.log(keyArray + " array")
         console.log(operator)
@@ -42,7 +39,13 @@ goBack.addEventListener('click', function (e) {
 
         let topDisplay = document.querySelector('.operator-display');
         count = topDisplay.querySelectorAll('.operator-display>div').length;
-
+        if (topDisplay.lastChild.innerText === "+" ||
+            topDisplay.lastChild.innerText === "-" ||
+            topDisplay.lastChild.innerText === "×" ||
+            topDisplay.lastChild.innerText === "÷") {
+            topDisplay.removeChild(topDisplay.lastChild);
+        } else
+        console.log(operator)
         if (count !== secondCount) {
             for (let i = 0 ; i < keyString.length ; i++) {
             topDisplay.removeChild(topDisplay.lastChild);
@@ -50,7 +53,9 @@ goBack.addEventListener('click', function (e) {
         }
         secondCount = topDisplay.querySelectorAll('.operator-display>div').length;
         botDisplay.innerText = "";
-        keyString = "";
+        if (keyString){
+             keyString = ""
+        } 
         console.log(keyString);
         console.log(display)
 });
@@ -63,13 +68,24 @@ clearKey.addEventListener('click', function (e) {
     }
     let numDisplay = document.querySelector('.number-display');
         numDisplay.textContent = "0"
+        // Reset variables to default values
+        keyString = "";
+        operator = "";
+        keyArray = [];
+        display = "";
+        runningTotal = 0;
+        count = "0";
+        secondCount = "0";
 });
 
 numKey.forEach((div) => {
     div.addEventListener(`click`, function (e) {
         console.log("------NUMBER--------")
+        console.log(keyArray)
         display = e.target.innerText;
-        if (keyString.includes('.') && display.includes('.') || keyString.length > 14 ) {
+        if (keyString.includes('.') && display.includes('.') || 
+            keyString.length > 14 || 
+            botDisplay.innerText === "" ) {
             return
         } else
         value = e.target.innerText;
@@ -79,14 +95,20 @@ numKey.forEach((div) => {
         divCheck();
         topDisplay();
         displayNumKey(); 
+        console.log(runningTotal)
     });
 });
-  
+
 operatorKey.forEach((div) => {
     div.addEventListener(`click`, function(e) {
         console.log("------OPERATOR---------")
         console.log(display)
-        if (keyString === "" || display === "+" || display === "" || display === "÷" || display === "x" || display === "<") { 
+        if (keyString === "" && (!display) || 
+            display === "+" || 
+            display === ""  || 
+            display === "÷" || 
+            display === "x" || 
+            display === "<") { 
             display = ""
             return
         } else
@@ -129,14 +151,9 @@ equalsKey.addEventListener(`click`, function (e) {
     } else {
         displayEqualResult.textContent = parseFloat(result.toPrecision(13));
     }
-    // console.log(keyString = "")
-    // console.log(operator = "")
-    // console.log(keyArray = [])
-    // console.log(display = "")
 });
 
-
-// functions ------------
+// FUNCTIONS ------------
 
 function currentResult(runningTotal) {
     if (keyArray.length > 1) {
