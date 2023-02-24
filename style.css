@@ -11,7 +11,7 @@ body {
     height: 100%;
     background-color:whitesmoke;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:rgb(97, 129, 188);  
+    color:rgb(97, 129, 188);     
 }
 
 .to-infinity {
@@ -19,7 +19,7 @@ body {
 }
 
 .calc-container {
-    background-color:rgb(131, 166, 232);
+    background-color: #83a6e8;
     padding: 2px;
 }
 
@@ -27,9 +27,14 @@ body {
     margin-top: 1.5px;
     display:flex;
     flex: 1;
-    background-color: aliceblue;
+    background-color: rgb(240, 248, 255);
     width: 500px;
     user-select: none;
+}
+
+.button-hover {
+    transform: scale(1.015);
+    color: azure;
 }
 
 .row-two, .row-three, .row-four, .row-five { 
@@ -43,19 +48,7 @@ body {
     background-color:rgb(131, 166, 232);
 }
 
-.key, .clear {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 110px;
-    text-align: center;
-    margin-top: 1px;
-    font-size: 26px;
-    padding: 1px;
-    background-color: azure;
-}
-
-.go-back {
+.key, .clear, .go-back, .num-key {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -78,30 +71,6 @@ body {
     padding: 1px;
     background-color: azure;
 }
-
-.num-key {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 110px;
-    text-align: center;
-    margin-top: 1px;
-    font-size: 26px;
-    padding: 1px;
-    background-color: azure;
-}
-
-/* .double-zero {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 110px;
-    text-align: center;
-    margin-top: 1px;
-    font-size: 26px;
-    padding: 1px;
-    background-color: azure;
-} */
 
 .top-display {
     height: 50px;

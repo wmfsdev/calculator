@@ -5,8 +5,9 @@ const operatorObj = {
     '+': function add(a, b) { return a + b; },
     '-': function sub(a, b) { return a - b; },
     '×': function multiply(a, b) { return a * b; },
-    '÷': function divide(a, b) { return a / b; }    
-}
+    '÷': function divide(a, b) { return a / b; },
+    '%': function squared(a, b) { return a % b }  
+    } 
 
 // VARIABLES --------
 
@@ -25,41 +26,20 @@ let numKey = document.querySelectorAll(`.num-key`);
 let equalsKey = document.querySelector(`.equals`);
 let clearKey = document.querySelector(`.clear`);
 let botDisplay = document.querySelector('.number-display');
-let goBack = document.querySelector('.go-back')
+let buttons = document.querySelectorAll('.key, .num-key, .equals, .clear, .go-back')
 
 // EVENT LISTENERS ---------
 
-goBack.addEventListener('click', function (e) {
-        console.log("-----GO BACK------")
-        console.log(keyString + " string") 
-        console.log(keyArray + " array")
-        console.log(operator)
-        console.log(keyString + " string")          
-        console.log(keyArray + " array")
-
-        let topDisplay = document.querySelector('.operator-display');
-        count = topDisplay.querySelectorAll('.operator-display>div').length;
-        if (topDisplay.lastChild.innerText === "+" ||
-            topDisplay.lastChild.innerText === "-" ||
-            topDisplay.lastChild.innerText === "×" ||
-            topDisplay.lastChild.innerText === "÷") {
-            topDisplay.removeChild(topDisplay.lastChild);
-        } else
-        console.log(operator)
-        if (count !== secondCount) {
-            for (let i = 0 ; i < keyString.length ; i++) {
-            topDisplay.removeChild(topDisplay.lastChild);
-            }
-        }
-        secondCount = topDisplay.querySelectorAll('.operator-display>div').length;
-        botDisplay.innerText = "";
-        if (keyString){
-             keyString = ""
-        } 
-        console.log(keyString);
-        console.log(display)
-});
-
+buttons.forEach((div) => {
+    div.addEventListener(`mouseenter`, function (e) {
+        e.target.style.backgroundColor = `#aec4ef`;
+        div.classList.add('button-hover');  
+        div.addEventListener(`mouseleave`, function (e) {   
+            e.target.style.backgroundColor = `rgb(240, 255, 255)`; 
+            div.classList.remove('button-hover') ;  
+        });
+    });
+});  
 
 clearKey.addEventListener('click', function (e) {
     let opDisplayChild = document.querySelector('.operator-display');
@@ -80,57 +60,56 @@ clearKey.addEventListener('click', function (e) {
 
 numKey.forEach((div) => {
     div.addEventListener(`click`, function (e) {
-        console.log("------NUMBER--------")
-        console.log(keyArray)
+        //console.log("------NUMBER--------")
         display = e.target.innerText;
+        const divDisplay = document.querySelector('.operator-display');
+        displayCount = divDisplay.querySelectorAll('.operator-display>div').length;
         if (keyString.includes('.') && display.includes('.') || 
-            keyString.length > 14 || 
+            keyString.length > 14 || displayCount > 15 ||
             botDisplay.innerText === "" ) {
             return
+        } else if (display == "00" || keyString.length > 14 || displayCount > 15) {
+            value = "00"
+        } else if (keyString === "") {
+        value = e.target.innerText;
         } else
         value = e.target.innerText;
         keyString += value;
-        console.log(keyString + " string")
-        console.log(keyArray + " array")
         divCheck();
         topDisplay();
         displayNumKey(); 
-        console.log(runningTotal)
     });
 });
 
 operatorKey.forEach((div) => {
     div.addEventListener(`click`, function(e) {
-        console.log("------OPERATOR---------")
-        console.log(display)
+        //console.log("------OPERATOR---------")
+        const divDisplay = document.querySelector('.operator-display');
+        displayCount = divDisplay.querySelectorAll('.operator-display>div').length;
         if (keyString === "" && (!display) || 
             display === "+" || 
             display === ""  || 
             display === "÷" || 
             display === "x" || 
-            display === "<") { 
+            display === "<" ||
+            display === "%" ||
+            displayCount > 15) { 
             display = ""
             return
-        } else
-        console.log(operator)                                      
+        } else                                 
         pushKeyArray();
         currentResult(runningTotal); 
         display = e.target.innerText
         operator = e.target.innerText
-        console.log(keyArray)
         divCheck(); 
         topDisplay();
-        divCheck();                            
-        console.log(operator)
-        console.log(keyString + " string")          
-        console.log(keyArray + " array")          
+        divCheck();                                 
         keyString = "";
     });
 });
 
 equalsKey.addEventListener(`click`, function (e) {
-    console.log("-------EQUALS-------")
-    console.log(keyString)
+    // console.log("-------EQUALS-------")
     if (display === "" || keyArray.length < 1 && display.length > 0) {
         return
     } else
@@ -138,7 +117,6 @@ equalsKey.addEventListener(`click`, function (e) {
     if (keyArray[0] === "." || keyArray[1] === "." && keyString.length > 0) {
         return
     } else
-    console.log(keyArray)
     display = e.target.innerText;
     let zeroIndexToNumber = Number(keyArray[0])
     let firstIndexToNumber = Number(keyArray[1])
@@ -157,13 +135,9 @@ equalsKey.addEventListener(`click`, function (e) {
 
 function currentResult(runningTotal) {
     if (keyArray.length > 1) {
-        
         let zeroIndexToNumber = Number(keyArray[0])
         let firstIndexToNumber = Number(keyArray[1])
-        
         runningTotal = operate(zeroIndexToNumber, firstIndexToNumber, operatorObj[operator])
-        console.log(runningTotal)
-
         let displayCurrentResult = document.querySelector(`.number-display`)
         if (runningTotal === Infinity) {
             displayCurrentResult.classList.add('to-infinity');
@@ -211,3 +185,36 @@ function topDisplay() {
     content.classList.add(`top-display-numbers`)
     operatorDisplay.appendChild(content)
 }
+
+
+// REDUNDANT ------
+// let goBack = document.querySelector('.go-back')
+// goBack.addEventListener('click', function (e) {
+//         console.log("-----GO BACK------")
+//         console.log(keyString + " string") 
+//         console.log(keyArray + " array")
+//         console.log(operator)
+//         console.log(keyString + " string")          
+//         console.log(keyArray + " array")
+//         let topDisplay = document.querySelector('.operator-display');
+//         count = topDisplay.querySelectorAll('.operator-display>div').length;
+//         if (topDisplay.lastChild.innerText === "+" ||
+//             topDisplay.lastChild.innerText === "-" ||
+//             topDisplay.lastChild.innerText === "×" ||
+//             topDisplay.lastChild.innerText === "÷") {
+//             topDisplay.removeChild(topDisplay.lastChild);
+//         } else
+//         console.log(operator)
+//         if (count !== secondCount) {
+//             for (let i = 0 ; i < keyString.length ; i++) {
+//             topDisplay.removeChild(topDisplay.lastChild);
+//             }
+//         }
+//         secondCount = topDisplay.querySelectorAll('.operator-display>div').length;
+//         botDisplay.innerText = "";
+//         if (keyString){
+//              keyString = ""
+//         } 
+//         console.log(keyString);
+//         console.log(display)
+// });
